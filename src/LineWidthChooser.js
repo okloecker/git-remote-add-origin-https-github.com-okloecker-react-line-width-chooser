@@ -15,11 +15,14 @@ const DEFAULT_FONT = "sans-serif";
  */
 function invertRgb(rgb) {
   if (!rgb) throw new Error("not a colour, expected #000000 or #00000000");
-  const rgbArr = rgb.match(/#([0-9a-z]{2})([0-9a-z]{2})([0-9a-z]{2})([0-9a-z]{0,2})/i);
-  if (!(rgbArr || []).length) throw new Error("not a colour, expected #000000 or #00000000");
-  const alpha = (rgbArr || []).slice(4)
+  const rgbArr = rgb.match(
+    /#([0-9a-z]{2})([0-9a-z]{2})([0-9a-z]{2})([0-9a-z]{0,2})/i
+  );
+  if (!(rgbArr || []).length)
+    throw new Error("not a colour, expected #000000 or #00000000");
+  const alpha = (rgbArr || []).slice(4);
   const rvArr = (rgbArr || [])
-    .slice(1,4)
+    .slice(1, 4)
     .map(a => +("0x" + a) ^ 0xff)
     .map(a => a.toString(16).padStart(2, 0));
   const rv = "#" + rvArr.join("") + (alpha[0] || "");
@@ -42,7 +45,7 @@ function invertRgb(rgb) {
  * @param onClick fires when user clicks a hovered line
  * @param onChange fires when user hovers over a line (enters it)
  *
-*/
+ */
 const LineWidthChooser = ({
   lineWidths,
   width,
@@ -58,9 +61,7 @@ const LineWidthChooser = ({
   const finalBackground = background || DEFAULT_BACKGROUND;
   const finalBorder = el => {
     const rv =
-      +hoverId === +el
-        ? `2px solid ${invertRgb(finalBackground)}`
-        : ``;
+      +hoverId === +el ? `2px solid ${invertRgb(finalBackground)}` : ``;
     return rv;
   };
 
@@ -73,36 +74,38 @@ const LineWidthChooser = ({
         opacity: opacity || 1
       }}
     >
-      {((Array.isArray(lineWidths) && lineWidths) || DEFAULT_ELEMENTS).map(el => (
-        <div
-          key={el + Math.random()}
-          id={el}
-          className={styles.element}
-          style={{
-            outline: finalBorder(el)
-          }}
-          onClick={e => onClick ? onClick(e.currentTarget.id) : null}
-          onMouseEnter={e => {
-            setHoverId(e.currentTarget.id);
-            onChange && onChange(e.currentTarget.id);
-          }}
-          onMouseLeave={e => setHoverId(undefined)}
-        >
+      {((Array.isArray(lineWidths) && lineWidths) || DEFAULT_ELEMENTS).map(
+        el => (
           <div
+            key={el + Math.random()}
+            id={el}
+            className={styles.element}
             style={{
-              color: finalColour,
-              fontFamily: font || DEFAULT_FONT
+              outline: finalBorder(el)
             }}
+            onClick={e => (onClick ? onClick(e.currentTarget.id) : null)}
+            onMouseEnter={e => {
+              setHoverId(e.currentTarget.id);
+              onChange && onChange(e.currentTarget.id);
+            }}
+            onMouseLeave={e => setHoverId(undefined)}
           >
-            {el}
+            <div
+              style={{
+                color: finalColour,
+                fontFamily: font || DEFAULT_FONT
+              }}
+            >
+              {el}
+            </div>
+            <div
+              style={{
+                borderBottom: `${el}px solid ${colour || DEFAULT_COLOUR}`
+              }}
+            />
           </div>
-          <div
-            style={{
-              borderBottom: `${el}px solid ${colour || DEFAULT_COLOUR}`
-            }}
-          />
-        </div>
-      ))}
+        )
+      )}
     </div>
   );
 };
@@ -110,7 +113,7 @@ const LineWidthChooser = ({
 LineWidthChooser.propTypes = {
   lineWidths: PropTypes.array,
   onChange: PropTypes.func,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 export default LineWidthChooser;

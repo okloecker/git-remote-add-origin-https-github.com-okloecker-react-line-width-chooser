@@ -11,15 +11,33 @@ export const LineWidthChooserDefault = () => (
   <LineWidthChooser onChange={action("change")} onClick={action("click")} />
 );
 export const LineWidthChooserPink = () => (
-  <div style={{ background:"grey", display: "flex", justifyContent: "center", padding: "2ex" }}>
+  <div
+    style={{
+      background: "grey",
+      display: "flex",
+      justifyContent: "center",
+      padding: "2ex"
+    }}
+  >
     <div />
     <LineWidthChooser colour="hotpink" onClick={action("click")} />
   </div>
 );
 export const LineWidthChooserPinkWithCustomArray = () => (
-  <div style={{ background:"grey", display: "flex", justifyContent: "center", padding: "2ex" }}>
+  <div
+    style={{
+      background: "grey",
+      display: "flex",
+      justifyContent: "center",
+      padding: "2ex"
+    }}
+  >
     <div />
-    <LineWidthChooser colour="hotpink" onClick={action("click")} lineWidths={[1,3,7]}/>
+    <LineWidthChooser
+      colour="hotpink"
+      onClick={action("click")}
+      lineWidths={[1, 3, 7]}
+    />
   </div>
 );
 export const LineWidthChooserDarkBackground = () => (
