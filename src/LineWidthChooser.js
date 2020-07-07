@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import styles from "./LineWidthChooser.module.scss";
 
@@ -57,7 +58,7 @@ const LineWidthChooser = ({
   const finalBackground = background || DEFAULT_BACKGROUND;
   const finalBorder = el => {
     const rv =
-      +hoverId == +el
+      +hoverId === +el
         ? `2px solid ${invertRgb(finalBackground)}`
         : ``;
     return rv;
@@ -72,7 +73,7 @@ const LineWidthChooser = ({
         opacity: opacity || 1
       }}
     >
-      {(lineWidths || DEFAULT_ELEMENTS).map(el => (
+      {((Array.isArray(lineWidths) && lineWidths) || DEFAULT_ELEMENTS).map(el => (
         <div
           key={el + Math.random()}
           id={el}
@@ -104,6 +105,12 @@ const LineWidthChooser = ({
       ))}
     </div>
   );
+};
+
+LineWidthChooser.propTypes = {
+  lineWidths: PropTypes.array,
+  onChange: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 export default LineWidthChooser;

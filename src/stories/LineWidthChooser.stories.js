@@ -16,6 +16,12 @@ export const LineWidthChooserPink = () => (
     <LineWidthChooser colour="hotpink" onClick={action("click")} />
   </div>
 );
+export const LineWidthChooserPinkWithCustomArray = () => (
+  <div style={{ background:"grey", display: "flex", justifyContent: "center", padding: "2ex" }}>
+    <div />
+    <LineWidthChooser colour="hotpink" onClick={action("click")} lineWidths={[1,3,7]}/>
+  </div>
+);
 export const LineWidthChooserDarkBackground = () => (
   <LineWidthChooser background={"#909090"} onClick={action("click")} />
 );
